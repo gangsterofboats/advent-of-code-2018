@@ -30,10 +30,11 @@ say @input_file.sum;
 # my @prev_sums;
 # my $filename = 'day-1-input.txt';
 # my @input_file = $filename.IO.lines(:chomp);
+# my @numbers = @input_file.map: {.Int};
 # my $i = 0;
 # loop
 # {
-    # $current_sum += @input_file[$i].Int;
+    # $current_sum += @numbers[$i++ % @numbers];
     # if not ($current_sum eq any(@prev_sums))
     # {
         # @prev_sums.push($current_sum);
@@ -42,14 +43,5 @@ say @input_file.sum;
     # {
         # say $current_sum;
         # last;
-    # }
-
-    # if ($i + 1 >= @input_file.elems)
-    # {
-        # $i = 0;
-    # }
-    # else
-    # {
-        # $i++;
     # }
 # }
