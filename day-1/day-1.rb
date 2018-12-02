@@ -17,6 +17,7 @@
 ################################################################################
 
 # Part One
+# 561
 
 # initial_value = 0
 # input_file = File.readlines('day-1-input.txt')
@@ -24,6 +25,7 @@
 # puts numbers.sum
 
 # Part Two
+# 563
 
 current_sum = 0
 prev_sums = []
