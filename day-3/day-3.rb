@@ -37,7 +37,7 @@
 # end
 # puts fabric_map.flatten.count {|x| x >= 2}
 
-# Part 2
+# Part Two
 # 943
 
 input_file = File.readlines('day-3-input.txt')
