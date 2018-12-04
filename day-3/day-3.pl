@@ -18,7 +18,7 @@
 use strict;
 use warnings;
 use feature 'say';
-use Data::Dumper;
+
 # Part One
 # 121163
 
@@ -52,7 +52,7 @@ use Data::Dumper;
 # say $count;
 
 
-# Part 2
+# Part Two
 # 943
 
 my $filename = 'day-3-input.txt';
