@@ -37,7 +37,7 @@ import re
 
 # print(overlap)
 
-# Part 2
+# Part Two
 # 943
 
 input_file = open('day-3-input.txt', 'r').read().splitlines()
