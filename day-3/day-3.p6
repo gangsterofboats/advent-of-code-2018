@@ -100,7 +100,7 @@ sub part-two(@input)
 }
 
 # Part One => 121163
-# Part 2 => 943
+# Part Two => 943
 
 my $filename = 'day-3-input.txt';
 my @input-file = $filename.IO.lines(:chomp);
