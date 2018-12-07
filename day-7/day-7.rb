@@ -19,38 +19,36 @@
 # Function definitions
 
 def part_one(input)
-  arrow_input = []
+  s_input = input.sort
   letter_pairs_forward = {}
   letter_pairs_backward = {}
   letters = ('A'..'Z').to_a
   middle = ' must be finished before step '
-  input.each do |line|
+  s_input.each do |line|
     aline = line.gsub(middle, '=>')
     aline = aline.gsub('Step ', '')
     aline = aline.gsub(' can begin.', '')
-    arrow_input.push(aline)
-  end
-  arrow_input.sort!
-  letters.each do |ltr|
-    paired_letters_forward = []
-    arrow_input.each do |arw|
-      if arw.start_with?(ltr)
-        paired_letters_forward.push(arw[-1])
-      end
+    f, s = aline[0], aline[-1]
+    if not letter_pairs_forward.key?(f)
+      letter_pairs_forward[f] = [s]
+    else
+      letter_pairs_forward[f].push(s)
     end
-    letter_pairs_forward[ltr] = paired_letters_forward
+    if not letter_pairs_backward.key?(s)
+      letter_pairs_backward[s] = [f]
+    else
+      letter_pairs_backward[s].push(f)
+    end
   end
   letters.each do |ltr|
-    paired_letters_backward = []
-    arrow_input.each do |arw|
-      wra = arw.reverse
-      if wra.start_with?(ltr)
-        paired_letters_backward.push(wra[-1])
-      end
+    if not letter_pairs_forward.key?(ltr)
+      letter_pairs_forward[ltr] = ['']
     end
-    letter_pairs_backward[ltr] = paired_letters_backward
+    if not letter_pairs_backward.key?(ltr)
+      letter_pairs_backward[ltr] = ['']
+    end
   end
-  puts letter_pairs_backward
+  puts letter_pairs_backward.sort.to_h
 end
 
 def part_two(input)
