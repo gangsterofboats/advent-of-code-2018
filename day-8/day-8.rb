@@ -21,7 +21,6 @@
 def part_one(input)
   childs, metas = input[0..1]
   input = input[2..-1]
-  entries = []
   totals = 0
 
   childs.downto(1) do
