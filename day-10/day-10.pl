@@ -1,0 +1,176 @@
+#!/usr/bin/env perl
+################################################################################
+# Copyright (C) 2018 Michael Wiseman                                           #
+#                                                                              #
+# This program is free software: you can redistribute it and/or modify it      #
+# under the terms of the GNU Affero General Public License as published by the #
+# Free Software Foundation, either version 3 of the License, or (at your       #
+# option) any later version.                                                   #
+#                                                                              #
+# This program is distributed in the hope that it will be useful, but WITHOUT  #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License #
+# for more details.                                                            #
+#                                                                              #
+# You should have received a copy of the GNU Affero General Public License     #
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.       #
+################################################################################
+use strict;
+use warnings;
+use feature 'say';
+use List::Util 'max';
+use Data::Dumper;
+
+# Function definitions
+
+sub part_one
+{
+    my @lights;
+    my $max_x = -1000000;
+    my $min_x = 1000000;
+    my $max_y = -1000000;
+    my $min_y = 1000000;
+    my $time_to_take = 0;
+    my ($i_max_x, $i_min_x, $i_max_y, $i_min_y) = (0, 0, 0, 0);
+
+    my @input = @{$_[0]};
+    for my $line (@input)
+    {
+        my $l = $line =~ s/=</ => \[/rg;
+        $l =~ s/> v/\], v/g;
+        $l =~ s/>$/\]}/g;
+        $l =~ s/^p/{p/g;
+        push @lights, (eval $l);
+    }
+    while (my ($i, $lgt) = each @lights)
+    {
+        if ($lgt->{'position'}[0] > $max_x)
+        {
+            $max_x = $lgt->{'position'}[0];
+            $i_max_x = $i;
+        }
+        if ($lgt->{'position'}[0] < $min_x)
+        {
+            $min_x = $lgt->{'position'}[0];
+            $i_min_x = $i;
+        }
+        if ($lgt->{'position'}[1] > $max_y)
+        {
+            $max_y = $lgt->{'position'}[1];
+            $i_max_y = $i;
+        }
+        if ($lgt->{'position'}[1] < $min_y)
+        {
+            $min_y = $lgt->{'position'}[1];
+            $i_min_y = $i;
+        }
+    }
+    my $x0 = $lights[$i_max_x]{'position'}[0];
+    my $x1 = $lights[$i_min_x]{'position'}[0];
+    my $y0 = $lights[$i_max_y]{'position'}[1];
+    my $y1 = $lights[$i_min_y]{'position'}[1];
+    my $box = 1;
+    while ($box > 0)
+    {
+        $x0 += $lights[$i_max_x]{'velocity'}[0];
+        $x1 += $lights[$i_min_x]{'velocity'}[0];
+        $y0 += $lights[$i_max_y]{'velocity'}[1];
+        $y1 += $lights[$i_min_y]{'velocity'}[1];
+        $time_to_take += 1;
+        $box = ($x0 - $x1) * ($y0 - $y1);
+    }
+    for my $j (1..$time_to_take)
+    {
+        my @lights_map;
+        push @lights_map, [('.') x 300] for (0..200);
+        for my $light (@lights)
+        {
+            $light->{'position'}[0] += $light->{'velocity'}[0];
+            $light->{'position'}[1] += $light->{'velocity'}[1];
+            my $x_index = $light->{'position'}[0];
+            my $y_index = $light->{'position'}[1];
+            if ($j == $time_to_take - 1)
+            {
+                $lights_map[$y_index][$x_index] = '#';
+            }
+        }
+        if ($j == $time_to_take - 1)
+        {
+            open(my $fh, '>', 'map.txt');
+            for my $ln (@lights_map)
+            {
+                my $row = join '', @{$ln};
+                say $fh "$row";
+            }
+            close $fh;
+        }
+    }
+}
+
+sub part_two
+{
+        my @lights;
+    my $max_x = -1000000;
+    my $min_x = 1000000;
+    my $max_y = -1000000;
+    my $min_y = 1000000;
+    my $time_to_take = 0;
+    my ($i_max_x, $i_min_x, $i_max_y, $i_min_y) = (0, 0, 0, 0);
+
+    my @input = @{$_[0]};
+    for my $line (@input)
+    {
+        my $l = $line =~ s/=</ => \[/rg;
+        $l =~ s/> v/\], v/g;
+        $l =~ s/>$/\]}/g;
+        $l =~ s/^p/{p/g;
+        push @lights, (eval $l);
+    }
+    while (my ($i, $lgt) = each @lights)
+    {
+        if ($lgt->{'position'}[0] > $max_x)
+        {
+            $max_x = $lgt->{'position'}[0];
+            $i_max_x = $i;
+        }
+        if ($lgt->{'position'}[0] < $min_x)
+        {
+            $min_x = $lgt->{'position'}[0];
+            $i_min_x = $i;
+        }
+        if ($lgt->{'position'}[1] > $max_y)
+        {
+            $max_y = $lgt->{'position'}[1];
+            $i_max_y = $i;
+        }
+        if ($lgt->{'position'}[1] < $min_y)
+        {
+            $min_y = $lgt->{'position'}[1];
+            $i_min_y = $i;
+        }
+    }
+    my $x0 = $lights[$i_max_x]{'position'}[0];
+    my $x1 = $lights[$i_min_x]{'position'}[0];
+    my $y0 = $lights[$i_max_y]{'position'}[1];
+    my $y1 = $lights[$i_min_y]{'position'}[1];
+    my $box = 1;
+    while ($box > 0)
+    {
+        $x0 += $lights[$i_max_x]{'velocity'}[0];
+        $x1 += $lights[$i_min_x]{'velocity'}[0];
+        $y0 += $lights[$i_max_y]{'velocity'}[1];
+        $y1 += $lights[$i_min_y]{'velocity'}[1];
+        $time_to_take += 1;
+        $box = ($x0 - $x1) * ($y0 - $y1);
+    }
+    say $time_to_take - 1;
+}
+
+my $filename = 'day-10-input.txt';
+open(my $ifh, '<', $filename);
+my @input_file = <$ifh>;
+close $ifh;
+chomp(@input_file);
+
+part_one(\@input_file); # HRPHBRKG
+part_two(\@input_file); # 10355
