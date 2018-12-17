@@ -71,5 +71,5 @@ end
 
 input_file = File.readlines('day-17-input.txt').map(&:chomp)
 
-part_one(input_file) #
-# part_two(input_file) #
+part_one(input_file) # 29741
+# part_two(input_file) # 24198
