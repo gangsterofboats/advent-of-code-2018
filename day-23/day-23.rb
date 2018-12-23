@@ -53,4 +53,4 @@ end
 input_file = File.readlines('day-23-input.txt').map(&:chomp)
 
 part_one(input_file) # 652
-# part_two(input_file) # not 158395963; too low
+# part_two(input_file) # 164960498
