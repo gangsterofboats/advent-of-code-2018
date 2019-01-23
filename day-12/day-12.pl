@@ -109,68 +109,6 @@ sub part_two
     say $sum;
 }
 
-# def part_one(input)
-  # starting at -2, but 0
-  # 1.upto(20) do
-    # next_gen = Hash.new('.')
-    # min_pot = gen.keys.min - 2
-    # max_pot = gen.keys.max + 2
-    # (min_pot..max_pot).each do |pot|
-      # plant_state = ''
-      # (pot-2..pot+2).each do |s|
-        # plant_state += gen[s]
-      # end
-      # next_gen[pot] = rules[plant_state]
-    # end
-    # gen = next_gen
-  # end
-  # sum = 0
-  # gen.each do |key,value|
-    # if value == '#'
-      # sum += key
-    # end
-  # end
-  # puts sum
-# end
-
-# def part_two(input)
-    # initial_state = input[0]
-  # initial_state.gsub!(/^.*: /, '')
-  # rules = {}
-
-  # 2.upto(input.length - 1) do |line|
-    # key, value = input[line].split(' => ')
-    # rules[key] = value
-  # end
-
-  # gen = Hash.new('.')
-  # (0..initial_state.length - 1).each do |p|
-    # gen[p] = initial_state[p]
-  # end
-
-  # starting at -2, but 0
-  # 1.upto(50000000000) do
-    # next_gen = Hash.new('.')
-    # min_pot = gen.keys.min - 2
-    # max_pot = gen.keys.max + 2
-    # (min_pot..max_pot).each do |pot|
-      # plant_state = ''
-      # (pot-2..pot+2).each do |s|
-        # plant_state += gen[s]
-      # end
-      # next_gen[pot] = rules[plant_state]
-    # end
-    # gen = next_gen
-  # end
-  # sum = 0
-  # gen.each do |key,value|
-    # if value == '#'
-      # sum += key
-    # end
-  # end
-  # puts sum
-# end
-
 my $filename = 'day-12-input.txt';
 open(my $ifh, '<', $filename);
 my @input_file = <$ifh>;
